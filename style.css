@@ -1,10 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     background-color: rgb(19, 24, 41);
-    margin: 10px auto;
-    padding: 20px;
-    width: 500px;
+    min-height: 10vh;
+    min-width: 1vw;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+  display: flex;
+  gap: 10px; 
+  width: 100%;
+  justify-content: center;
 }
 
 h1 {
@@ -16,6 +25,8 @@ input[type="text"] {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 250px;
+    box-sizing: border-box;
 }
 
 button {
@@ -26,6 +37,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -40,7 +52,10 @@ ul {
     list-style-type: none;
     padding: 0;
     margin-top: 20px;
-    width: 60%;
+    width: 350px;
+    display: flex;  
+    flex-direction: column;
+    align-items: left;
 }
 
 li {
@@ -49,5 +64,26 @@ li {
     padding: 10px;
     border-radius: 4px;
     border: 1px solid rgb(182, 97, 0);
-    color: #c9c9c9;
+    color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete-btn {
+    background: rgba(228, 63, 63, 0.87);
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.delete-btn:hover {
+    background: rgba(161, 0, 0, 0.897);
+}
+
+.delete-btn:active {
+  background-color: #002346;
 }
