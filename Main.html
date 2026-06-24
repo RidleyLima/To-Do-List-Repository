@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>To-do List</title>
 </head>
 <body>
 <h1>Minha To-Do List</h1>
+<div class="corpo-inteiro">
 
 <div class="form-container">
     <input type="text" id="taskInput" placeholder="Digite uma nova tarefa">
@@ -16,10 +18,19 @@
         Adicionar
     </button>
 </div>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Pesquisar tarefa">
+        <select id="filterSelect">
+        <option value="all">Todas</option>
+        <option value="completed">Completas</option>
+        <option value="incomplete">Incompletas</option>
+    </select>
+</div>
+<div class="edit-container">
+</div>
 
 <ul id="taskList">
 
 </ul>
-<script src="script.js"></script>
 </body>
 </html>

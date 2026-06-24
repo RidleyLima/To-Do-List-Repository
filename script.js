@@ -6,6 +6,8 @@ addButton.addEventListener("click", function() {
     let taskText = taskInput.value.trim();
     if (taskText !== "") {
         const li = document.createElement("li");
+        
+        // 1. Texto da tarefa
         const textSpan = document.createElement("span");
         textSpan.textContent = taskText;
         li.appendChild(textSpan);
@@ -17,15 +19,49 @@ addButton.addEventListener("click", function() {
         deleteBtn.addEventListener('click', function() {
             taskList.removeChild(li);
         });
-
         li.appendChild(deleteBtn);
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "↩️";
+        editBtn.className = "edit-btn";
+        editBtn.setAttribute('aria-label', 'Editar tarefa');
+        
+        editBtn.addEventListener('click', function() {
+            const isEditing = li.classList.contains("editing");
+            
+            if (!isEditing) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = textSpan.textContent;
+                
+                li.replaceChild(input, textSpan);
+                editBtn.textContent = "Salvar";
+                li.classList.add("editing");
+                input.focus();
+            } else {
+                // Sai do modo de edição: salva o novo texto
+                const input = li.querySelector("input[type='text']");
+                const newText = input.value.trim();
+                
+                if (newText !== "") {
+                    textSpan.textContent = newText;
+                    // Destaca o input e volta com o texto original atualizado
+                    li.replaceChild(textSpan, input);
+                    editBtn.textContent = "↩️";
+                    li.classList.remove("editing");
+                }
+            }
+        });
+        li.appendChild(editBtn);
+
         taskList.appendChild(li);
         taskInput.value = "";
         taskInput.focus();
     }
 });
 
-taskInput.addEventListener("keypress", function(event) {
+
+taskInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         addButton.click();
     }

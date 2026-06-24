@@ -10,10 +10,12 @@ body {
 }
 
 .form-container {
+    margin-top: 20px;
+    margin-left: 20px;
   display: flex;
   gap: 10px; 
   width: 100%;
-  justify-content: center;
+  justify-content: left;
 }
 
 h1 {
@@ -55,7 +57,7 @@ ul {
     width: 350px;
     display: flex;  
     flex-direction: column;
-    align-items: left;
+
 }
 
 li {
@@ -68,6 +70,8 @@ li {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-weight: bold;
+    word-break: break-word;
 }
 
 .delete-btn {
@@ -78,6 +82,10 @@ li {
     cursor: pointer;
     padding: 4px 8px;
     border-radius: 4px;
+    margin-left: auto;
+    margin-right: 5px;
+    align-self: right;
+    flex-shrink: 0;
 }
 
 .delete-btn:hover {
@@ -86,4 +94,41 @@ li {
 
 .delete-btn:active {
   background-color: #002346;
+}
+
+.edit-btn {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.search-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    gap: 10px; 
+    width: 100%;
+    justify-content: space-around;
+}
+
+.corpo-inteiro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    margin: 0 auto;
+    background-color: rgb(25, 32, 58);
+}
+
+.filter-container {
+    margin-top: 20px;
+    gap: 10px; 
+    width: 20%;
+    justify-content: normal;
 }
