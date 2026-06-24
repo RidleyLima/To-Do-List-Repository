@@ -145,3 +145,21 @@ select {
 span{
     width: 100%;
 }
+.task-checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+li.completed {
+    background-color: rgb(34, 139, 34);
+    border-color: rgb(0, 100, 0);
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+li.completed .task-checkbox {
+    accent-color: rgb(144, 238, 144);
+}

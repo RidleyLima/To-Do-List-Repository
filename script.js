@@ -7,6 +7,11 @@ addButton.addEventListener("click", function() {
     if (taskText !== "") {
         const li = document.createElement("li");
         
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "task-checkbox";
+        li.appendChild(checkbox);
+        
         const textSpan = document.createElement("span");
         textSpan.textContent = taskText;
         li.appendChild(textSpan);
@@ -25,6 +30,20 @@ addButton.addEventListener("click", function() {
         editBtn.className = "edit-btn";
         editBtn.setAttribute('aria-label', 'Editar tarefa');
         
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                li.classList.add("completed");
+                editBtn.disabled = true;
+                editBtn.style.opacity = "0.5";
+                editBtn.style.cursor = "not-allowed";
+            } else {
+                li.classList.remove("completed");
+                editBtn.disabled = false;
+                editBtn.style.opacity = "1";
+                editBtn.style.cursor = "pointer";
+            }
+        });
+        
         editBtn.addEventListener('click', function() {
             const isEditing = li.classList.contains("editing");
             
@@ -34,7 +53,7 @@ addButton.addEventListener("click", function() {
                 input.value = textSpan.textContent;
                 
                 li.replaceChild(input, textSpan);
-                editBtn.textContent = "Salvar";
+                editBtn.textContent = "✅";
                 li.classList.add("editing");
                 input.focus();
             } else {
