@@ -7,7 +7,6 @@ addButton.addEventListener("click", function() {
     if (taskText !== "") {
         const li = document.createElement("li");
         
-        // 1. Texto da tarefa
         const textSpan = document.createElement("span");
         textSpan.textContent = taskText;
         li.appendChild(textSpan);
@@ -39,13 +38,11 @@ addButton.addEventListener("click", function() {
                 li.classList.add("editing");
                 input.focus();
             } else {
-                // Sai do modo de edição: salva o novo texto
                 const input = li.querySelector("input[type='text']");
                 const newText = input.value.trim();
                 
                 if (newText !== "") {
                     textSpan.textContent = newText;
-                    // Destaca o input e volta com o texto original atualizado
                     li.replaceChild(textSpan, input);
                     editBtn.textContent = "↩️";
                     li.classList.remove("editing");

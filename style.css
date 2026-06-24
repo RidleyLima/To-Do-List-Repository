@@ -69,10 +69,10 @@ li {
     color: #f3f3f3;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     font-weight: bold;
     word-break: break-word;
 }
+
 
 .delete-btn {
     background: rgba(228, 63, 63, 0.87);
@@ -82,10 +82,9 @@ li {
     cursor: pointer;
     padding: 4px 8px;
     border-radius: 4px;
-    margin-left: auto;
     margin-right: 5px;
-    align-self: right;
     flex-shrink: 0;
+
 }
 
 .delete-btn:hover {
@@ -126,9 +125,23 @@ li {
     background-color: rgb(25, 32, 58);
 }
 
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    box-sizing: border-box;
+}
+
 .filter-container {
     margin-top: 20px;
     gap: 10px; 
-    width: 20%;
+    width: 100%;
     justify-content: normal;
+}
+
+
+span{
+    width: 100%;
 }
