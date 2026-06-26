@@ -3,6 +3,7 @@ const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 const searchInput = document.getElementById("searchInput");
 const filterSelect = document.getElementById("filterSelect");
+const STORAGE_KEY = "todo-tasks";
 
 function updateTaskVisibility() {
     const searchTerm = searchInput.value.trim().toLowerCase();
@@ -23,6 +24,18 @@ function updateTaskVisibility() {
     }
 }
 
+function saveTasks() {
+    const tasks = Array.from(taskList.children).map((li) => {
+        const textSpan = li.querySelector("span");
+        return {
+            text: textSpan ? textSpan.textContent : "",
+            completed: li.classList.contains("completed")
+        };
+    });
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+}
+
 function toggleTaskCompletion(checkbox, li, editBtn) {
     if (checkbox.checked) {
         li.classList.add("completed");
@@ -35,6 +48,8 @@ function toggleTaskCompletion(checkbox, li, editBtn) {
         editBtn.style.opacity = "1";
         editBtn.style.cursor = "pointer";
     }
+
+    saveTasks();
 }
 
 function startEditingTask(li, textSpan, editBtn) {
@@ -63,16 +78,18 @@ function finishEditingTask(li, textSpan, editBtn) {
         li.replaceChild(textSpan, input);
         editBtn.textContent = "↩️";
         li.classList.remove("editing");
+        saveTasks();
         updateTaskVisibility();
     }
 }
 
-function createTaskElement(taskText) {
+function createTaskElement(taskText, completed = false) {
     const li = document.createElement("li");
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "task-checkbox";
+    checkbox.checked = completed;
     li.appendChild(checkbox);
 
     const textSpan = document.createElement("span");
@@ -85,6 +102,8 @@ function createTaskElement(taskText) {
     deleteBtn.setAttribute("aria-label", "Excluir tarefa");
     deleteBtn.addEventListener("click", function() {
         taskList.removeChild(li);
+        saveTasks();
+        updateTaskVisibility();
     });
     li.appendChild(deleteBtn);
 
@@ -92,6 +111,13 @@ function createTaskElement(taskText) {
     editBtn.textContent = "↩️";
     editBtn.className = "edit-btn";
     editBtn.setAttribute("aria-label", "Editar tarefa");
+
+    if (completed) {
+        li.classList.add("completed");
+        editBtn.disabled = true;
+        editBtn.style.opacity = "0.5";
+        editBtn.style.cursor = "not-allowed";
+    }
 
     checkbox.addEventListener("change", function() {
         toggleTaskCompletion(checkbox, li, editBtn);
@@ -115,9 +141,22 @@ function addTask() {
     if (taskText !== "") {
         const li = createTaskElement(taskText);
         taskList.appendChild(li);
+        saveTasks();
+        updateTaskVisibility();
         taskInput.value = "";
         taskInput.focus();
     }
+}
+
+function loadTasks() {
+    const savedTasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+    savedTasks.forEach((task) => {
+        const li = createTaskElement(task.text, task.completed);
+        taskList.appendChild(li);
+    });
+
+    updateTaskVisibility();
 }
 
 searchInput.addEventListener("input", updateTaskVisibility);
@@ -137,4 +176,6 @@ searchInput.addEventListener("keydown", function(event) {
         updateTaskVisibility();
     }
 });
+
+loadTasks();
 
