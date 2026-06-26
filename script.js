@@ -1,6 +1,30 @@
 const taskInput = document.getElementById("taskInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
+const searchInput = document.getElementById("searchInput");
+const filterSelect = document.getElementById("filterSelect");
+
+function updateTaskVisibility() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const filterValue = filterSelect.value;
+
+    for (const li of taskList.children) {
+        const textSpan = li.querySelector("span");
+        const taskText = textSpan ? textSpan.textContent.toLowerCase() : "";
+        const completed = li.classList.contains("completed");
+
+        const matchesSearch = searchTerm === "" || taskText.includes(searchTerm);
+        const matchesFilter =
+            filterValue === "all" ||
+            (filterValue === "completed" && completed) ||
+            (filterValue === "incomplete" && !completed);
+
+        li.style.display = matchesSearch && matchesFilter ? "" : "none";
+    }
+}
+
+searchInput.addEventListener("input", updateTaskVisibility);
+filterSelect.addEventListener("change", updateTaskVisibility);
 
 addButton.addEventListener("click", function() {
     let taskText = taskInput.value.trim();
@@ -52,6 +76,12 @@ addButton.addEventListener("click", function() {
                 input.type = "text";
                 input.value = textSpan.textContent;
                 
+                input.addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        editBtn.click();
+                    }
+                });
+                
                 li.replaceChild(input, textSpan);
                 editBtn.textContent = "✅";
                 li.classList.add("editing");
@@ -65,6 +95,7 @@ addButton.addEventListener("click", function() {
                     li.replaceChild(textSpan, input);
                     editBtn.textContent = "↩️";
                     li.classList.remove("editing");
+                    updateTaskVisibility();
                 }
             }
         });
@@ -80,6 +111,12 @@ addButton.addEventListener("click", function() {
 taskInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         addButton.click();
+    }
+});
+
+searchInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        updateTaskVisibility();
     }
 });
 
