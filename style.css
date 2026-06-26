@@ -158,8 +158,12 @@ span{
 li.completed {
     background-color: rgb(34, 139, 34);
     border-color: rgb(0, 100, 0);
-    text-decoration: line-through;
     opacity: 0.8;
+}
+
+li.completed span {
+    text-decoration: line-through;
+    color: #f3f3f3;
 }
 
 li.completed .task-checkbox {
